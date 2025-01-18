@@ -21,12 +21,12 @@
             height: 100%; 
         }
         #scoreContainer {
-          display: none; 
+            display: none; 
             position: absolute;
             top: 10px;
             left: 10px;
             background-color: rgb(255, 252, 252);
-            border: 3px solid #070707;
+            border: 5px solid #070707;
             border-radius: 15px;
             padding: 0px;
             width: 150px;
@@ -45,7 +45,7 @@
         }
         #progress {
             height: 100%;
-            background-color: #b7b7b7; /* لون شريط التقدم (أخضر) */
+            background-color: #b7b7b7; /* لون شريط التقدم */
             width: 0%; /* يبدأ من 0% */
         }
         #lives {
@@ -173,12 +173,17 @@
     <canvas id="gameCanvas" width="480" height="640"></canvas>
 
     <script>
+        // تحميل الأصوات
+        const startSound = new Audio('path/to/start-sound.mp3');
+        const gameStartSound = new Audio('path/to/game-start-sound.mp3');
+      const winSound = new Audio('path/to/win-sound.mp3');
+       const loseSound = new Audio('path/to/win-sound.mp3');
+
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         let score = 0;
         let lives = 3;
         let gameOver = false;
-
         const shapes = [];
         const obstacles = [];
         const paths = [80, 240, 400]; 
@@ -212,13 +217,13 @@
         function drawShape(shape) {
             const img = new Image();
             img.src = shape.image;
-            ctx.drawImage(img, shape.x - 25, shape.y - 25, 50, 50); // تغيير حجم الأشكال
+            ctx.drawImage(img, shape.x - 40, shape.y - 45, 80, 90); // تغيير حجم الأشكال
         }
 
         function drawObstacle(obstacle) {
             const img = new Image();
             img.src = obstacleImage;
-            ctx.drawImage(img, obstacle.x - 60, obstacle.y - 40, 60, 40); // رسم العقبة
+            ctx.drawImage(img, obstacle.x - 40, obstacle.y - 45, 80, 90); // رسم العقبة
         }
 
         function drawBasket() {
@@ -275,6 +280,7 @@
 
                     if (lives <= 0) {
                         gameOver = true; // إنهاء اللعبة
+                        loseSound.play(); // تشغيل صوت الخسارة
                         document.getElementById('loseScreen').style.display = 'flex'; 
                         document.getElementById('loseBackground').style.display = 'block'; 
                         document.getElementById('gameCanvas').style.display = 'none'; 
@@ -293,12 +299,13 @@
         }
 
         function updateScore() {
-            document.getElementById('score') ;
+            document.getElementById('score'); // عرض النقاط
             const progressWidth = Math.min((score / 150) * 100, 100); // نسبة التقدم
             document.getElementById('progress').style.width = `${progressWidth}%`; // تحديث عرض شريط التقدم
 
             if (score >= 150) { 
                 gameOver = true;
+                winSound.play(); // تشغيل صوت الفوز
                 document.getElementById('winScreen').style.display = 'flex'; 
                 document.getElementById('winBackground').style.display = 'block'; 
                 document.getElementById('gameCanvas').style.display = 'none'; 
@@ -339,11 +346,13 @@
         }
 
         function startGame() {
+            startSound.play(); // تشغيل صوت الضغط على زر اللعب
             document.getElementById('startBackground').style.display = 'none'; 
             document.getElementById('startScreen').style.display = 'none'; 
             document.getElementById('gameCanvas').style.display = 'block'; 
             document.getElementById('scoreContainer').style.display = 'block'; // عرض النقاط
             document.getElementById('lives').style.display = 'flex'; // عرض الحياة
+            gameStartSound.play(); // تشغيل صوت بداية اللعبة
             setInterval(createShape, 1000); 
             setInterval(createObstacle, 1500); 
             updateScore();
