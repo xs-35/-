@@ -175,9 +175,9 @@
     <script>
         // تحميل الأصوات
         const startSound = new Audio('path/to/start-sound.mp3');
-        const gameStartSound = new Audio('path/to/game-start-sound.mp3');
-      const winSound = new Audio('path/to/win-sound.mp3');
-       const loseSound = new Audio('path/to/win-sound.mp3');
+        const gameStartSound = new Audio('path/to/start-sound.mp3');
+        const winSound = new Audio('path/to/win-sound.mp3');
+        const loseSound = new Audio('path/to/lose-sound.mp3');
 
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -188,7 +188,7 @@
         const obstacles = [];
         const paths = [80, 240, 400]; 
         const shapeImages = [
-            'path/to/image1.png',
+            'path/to/image1.png' , 
             'path/to/image2.png',
             'path/to/image3.png',
             'path/to/image4.png',
@@ -217,13 +217,13 @@
         function drawShape(shape) {
             const img = new Image();
             img.src = shape.image;
-            ctx.drawImage(img, shape.x - 40, shape.y - 45, 80, 90); // تغيير حجم الأشكال
+            ctx.drawImage(img, shape.x - shape.width / 2, shape.y - shape.height / 2, shape.width, shape.height); // رسم الشكل بمقاسات مختلفة
         }
 
         function drawObstacle(obstacle) {
             const img = new Image();
             img.src = obstacleImage;
-            ctx.drawImage(img, obstacle.x - 40, obstacle.y - 45, 80, 90); // رسم العقبة
+            ctx.drawImage(img, obstacle.x - obstacle.width / 2, obstacle.y - obstacle.height / 2, obstacle.width, obstacle.height); // رسم العقبة بمقاسات مختلفة
         }
 
         function drawBasket() {
@@ -236,6 +236,8 @@
                 x: path,
                 y: 40,
                 speed: 2 + Math.random() * 2,
+                width: 83, // عرض الشكل
+                height: 99, // طول الشكل
                 image: shapeImages[Math.floor(Math.random() * shapeImages.length)],
             };
             shapes.push(shape);
@@ -247,6 +249,8 @@
                 x: path,
                 y: 40,
                 speed: 2 + Math.random() * 2,
+                width: 57, // عرض العقبة
+                height: 108, // طول العقبة
             };
             obstacles.push(obstacle);
         }
@@ -258,7 +262,7 @@
 
                 if (shape.y > canvas.height) {
                     shapes.splice(i, 1); 
-                } else if (shape.y + 30 > basket.y && shape.x > basket.x && shape.x < basket.x + basket.width) {
+                } else if (shape.y + shape.height > basket.y && shape.x > basket.x && shape.x < basket.x + basket.width) {
                     score += 10; // زيادة النقاط عند التقاط الشكل
                     shapes.splice(i, 1); // إزالة الشكل
                     updateScore();
@@ -273,7 +277,7 @@
 
                 if (obstacle.y > canvas.height) {
                     obstacles.splice(i, 1); 
-                } else if (obstacle.y + 20 > basket.y && obstacle.x > basket.x && obstacle.x < basket.x + basket.width) { 
+                } else if (obstacle.y + obstacle.height > basket.y && obstacle.x > basket.x && obstacle.x < basket.x + basket.width) { 
                     lives--; // تقليل الحياة عند التقاط العقبة
                     updateLivesDisplay();
                     obstacles.splice(i, 1); 
