@@ -321,7 +321,7 @@
             const progressWidth = Math.min((score / 150) * 100, 100); // نسبة التقدم
             document.getElementById('progress').style.width = `${progressWidth}%`; // تحديث عرض شريط التقدم
 
-            if (score >= 150) { 
+            if (score >= 120) { 
                 gameOver = true;
                 winSound.play(); // تشغيل صوت الفوز
                 document.getElementById('winScreen').style.display = 'flex'; 
