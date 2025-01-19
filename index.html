@@ -176,7 +176,7 @@
         // تحميل الأصوات
         const backgroundSound = new Audio('path/to/background-sound.mp3');
         const shapeCatchSound = new Audio('path/to/catch-sound.mp3');
-        const winSound = new Audio('path/to/win-sound.mp3');
+        const winSound = new Audio('path/to/win-soun.mp3');
         const loseSound = new Audio('path/to/lose-sound.mp3');
 
         const canvas = document.getElementById('gameCanvas');
@@ -230,21 +230,20 @@
             ctx.drawImage(basket.image, basket.x, basket.y, basket.width, basket.height); // رسم السلة
         }
 
-        // تعريف الأشكال بمتغيرات مختلفة مع تحديد العرض والطول
-        const shape1 = { width: 70, height: 51, speed: 2, image: shapeImages[0] }; // بطه 
-        const shape2 = { width: 67, height: 67, speed: 2.5, image: shapeImages[1] }; // ورق 
-        const shape3 = { width: 79, height: 59, speed: 3, image: shapeImages[2] }; // كرفتة 
-        const shape4 = { width: 71, height: 67, speed: 2.2, image: shapeImages[3] }; // لهاة 
-        const shape5 = { width: 61, height: 59, speed: 2.8, image: shapeImages[4] }; // لبس 
-        const shape6 = { width: 61, height: 59, speed: 3.1, image: shapeImages[5] }; // العاب معلقة 
-        const shape7 = { width: 59, height: 67, speed: 2.4, image: shapeImages[6] }; // عصاية نحمة 
-        const shape8 = { width: 72, height: 59, speed: 3.2, image: shapeImages[7] }; // عربة 
-        const shape9 = { width: 71, height: 67, speed: 2.9, image: shapeImages[8] }; // قلب 
-        const shape10 = { width: 38, height: 67, speed: 3.5, image: shapeImages[9] }; // رظاعة 
-
         function createShape() {
             const path = paths[Math.floor(Math.random() * paths.length)];
-            const shapeOptions = [shape1, shape2, shape3, shape4, shape5, shape6, shape7, shape8, shape9, shape10];
+            const shapeOptions = [
+                { width: 70, height: 51, speed: 2, image: shapeImages[0] }, // بطه 
+                { width: 67, height: 67, speed: 2.5, image: shapeImages[1] }, // ورق 
+                { width: 79, height: 59, speed: 3, image: shapeImages[2] }, // كرفتة 
+                { width: 71, height: 67, speed: 2.2, image: shapeImages[3] }, // لهاة 
+                { width: 61, height: 59, speed: 2.8, image: shapeImages[4] }, // لبس 
+                { width: 61, height: 59, speed: 3.1, image: shapeImages[5] }, // العاب معلقة 
+                { width: 59, height: 67, speed: 2.4, image: shapeImages[6] }, // عصاية نحمة 
+                { width: 72, height: 59, speed: 3.2, image: shapeImages[7] }, // عربة 
+                { width: 71, height: 67, speed: 2.9, image: shapeImages[8] }, // قلب 
+                { width: 38, height: 67, speed: 3.5, image: shapeImages[9] }, // رظاعة 
+            ];
             const shape = shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
             shapes.push({
                 x: path,
@@ -317,7 +316,7 @@
         }
 
         function updateScore() {
-            document.getElementById('score').innerText = `Score: ${score}`; // عرض النقاط
+            document.getElementById('score') // عرض النقاط
             const progressWidth = Math.min((score / 150) * 100, 100); // نسبة التقدم
             document.getElementById('progress').style.width = `${progressWidth}%`; // تحديث عرض شريط التقدم
 
@@ -380,32 +379,22 @@
             gameLoop();
         }
 
-        let isDragging = false; // متغير لتتبع حالة السحب
-
-        canvas.addEventListener('mousedown', (event) => {
-            isDragging = true; // تم بدء السحب
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            isDragging = false; // انتهى السحب
-        });
-
+        // معالجة حركة السلة حسب موقع الماوس
         canvas.addEventListener('mousemove', (event) => {
-            if (isDragging) {
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = event.clientX - rect.left; // موضع الماوس بالنسبة للوحة
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left; // موضع الماوس بالنسبة للوحة
 
-                // تحديث موقع السلة تحت الماوس
-                basket.x = mouseX - basket.width / 2; 
+            // تحديث موقع السلة تحت الماوس
+            basket.x = mouseX; // اجعل السلة تنتقل إلى موضع الماوس مباشرةً
 
-                // منع السلة من الخروج عن حدود اللوحة
-                if (basket.x < 0) {
-                    basket.x = 0;
-                } else if (basket.x + basket.width > canvas.width) {
-                    basket.x = canvas.width - basket.width;
-                }
+            // منع السلة من الخروج عن حدود اللوحة
+            if (basket.x < 0) {
+                basket.x = 0;
+            } else if (basket.x + basket.width > canvas.width) {
+                basket.x = canvas.width - basket.width;
             }
         });
+
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
