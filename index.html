@@ -208,7 +208,7 @@
         const basket = {
             x: canvas.width / 2 - 75, // وضع السلة في المنتصف
             y: canvas.height - 190,
-            width: 71, // تغيير حجم السلة
+            width: 80, // تغيير حجم السلة
             height: 130, // تغيير حجم السلة
             image: new Image(),
         };
@@ -231,15 +231,15 @@
         }
 
         // تعريف الأشكال بمتغيرات مختلفة مع تحديد العرض والطول
-        const shape1 = { width: 61, height: 51, speed: 2, image: shapeImages[0] };//بطه 
-        const shape2 = { width: 58, height: 67, speed: 2.5, image: shapeImages[1] };//ورق 
-        const shape3 = { width: 62, height: 59, speed: 3, image: shapeImages[2] };//كرفتة 
-        const shape4 = { width: 62, height: 67, speed: 2.2, image: shapeImages[3] };//لهاة 
-        const shape5 = { width: 52, height: 59, speed: 2.8, image: shapeImages[4] };//لبس 
-        const shape6 = { width: 52, height: 59, speed: 3.1, image: shapeImages[5] };//العاب معلقة 
-        const shape7 = { width: 50, height: 67, speed: 2.4, image: shapeImages[6] };//عصاية نحمة 
-        const shape8 = { width: 62, height: 59, speed: 3.2, image: shapeImages[7] };//عربة 
-        const shape9 = { width: 62, height: 67, speed: 2.9, image: shapeImages[8] };//قلب 
+        const shape1 = { width: 70, height: 51, speed: 2, image: shapeImages[0] };//بطه 
+        const shape2 = { width: 67, height: 67, speed: 2.5, image: shapeImages[1] };//ورق 
+        const shape3 = { width: 79, height: 59, speed: 3, image: shapeImages[2] };//كرفتة 
+        const shape4 = { width: 71, height: 67, speed: 2.2, image: shapeImages[3] };//لهاة 
+        const shape5 = { width: 61, height: 59, speed: 2.8, image: shapeImages[4] };//لبس 
+        const shape6 = { width: 61, height: 59, speed: 3.1, image: shapeImages[5] };//العاب معلقة 
+        const shape7 = { width: 59, height: 67, speed: 2.4, image: shapeImages[6] };//عصاية نحمة 
+        const shape8 = { width: 72, height: 59, speed: 3.2, image: shapeImages[7] };//عربة 
+        const shape9 = { width: 71, height: 67, speed: 2.9, image: shapeImages[8] };//قلب 
         const shape10 = { width: 38, height: 67, speed: 3.5, image: shapeImages[9] };// رظاعة 
 
         function createShape() {
@@ -262,7 +262,7 @@
                 x: path,
                 y: 40,
                 speed: 2 + Math.random() * 2,
-                width: 35, // عرض العقبة
+                width: 44, // عرض العقبة
                 height: 67, // طول العقبة
             };
             obstacles.push(obstacle);
